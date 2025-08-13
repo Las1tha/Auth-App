@@ -1,0 +1,60 @@
+const firebaseConfig = {
+    apiKey: "AIzaSyC5iKzhre7TrJwsAJL6bhhEevwzEmAZ-LA",
+    authDomain: "auth-app-bbe26.firebaseapp.com",
+    projectId: "auth-app-bbe26",
+    storageBucket: "auth-app-bbe26.firebasestorage.app",
+    messagingSenderId: "404692903479",
+    appId: "1:404692903479:web:0c60342601d226f7e7c1b2"
+  };
+ 
+  
+
+  //initialize firebase
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
+//DOM elements
+const signUpButton = document.getElementById('signUp');
+const signInButton = document.getElementById('signIn');
+const container = document.getElementById('container');
+const signupForm = document.getElementById('signup-form');
+const loginForm = document.getElementById('login-form');
+const forgetPasswordLink = document.getElementById('forget-password');
+
+//Event Listeners
+signUpButton.addEventListener('click', () => {
+    container.classList.add('right-panel-active');
+});
+signInButton.addEventListener('click', () => {
+    container.classList.remove('right-panel-active');
+});
+signupForm.addEventListener('submit', (e) => {
+   e.preventDefault();
+    //signup process
+    const name= signupForm['signup-name'].value;
+    const email= signupForm['signup-email'].value;
+    const password= signupForm['signup-password'].value;
+    const confirmPassword= signupForm['signup-confirm-password'].value;
+
+    //validation part
+    if(password !==confirmPassword){
+        console.log('Password do not match');
+        return;
+    }
+    //create user with firebase
+   auth.createUserWithEmailAndPassword(email,password)
+   .then((userCredential)=>{
+    //update user profile with name 
+    return userCredential.user.updateProfile({
+        displayName:name
+    });
+   })
+   .then(()=>{
+    console.log('Account created successfully')
+    signupForm.reset();
+    container.classList.remove('right-panel-active');
+   })
+   .catch(()=>{
+    console.log('Error: ${error.message}')
+   })
+});

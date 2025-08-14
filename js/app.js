@@ -84,7 +84,7 @@ loginForm.addEventListener('submit', (e) => {
         showToast('Logged in successfully!!', 'success');
         loginForm.reset();
         //redirect to dashboard
-        //window.loaction.href = 'dashboard.html'
+        window.location.href = 'dashboard.html'
     })
     .catch((error)=>{
         showToast(error.message,'error');

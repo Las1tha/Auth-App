@@ -64,11 +64,44 @@ signupForm.addEventListener('submit', (e) => {
     });
    })
    .then(()=>{
-    console.log('Account created successfully')
+    showToast('Account created successfully')
     signupForm.reset();
     container.classList.remove('right-panel-active');
    })
-   .catch(()=>{
-    console.log('Error: ${error.message}')
+   .catch((error)=>{
+    showToast(error.message, 'error');
    })
+}); 
+
+//Sign In
+loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const email = loginForm['login-email'].value;
+    const password = loginForm['login-password'].value;
+    auth.signInWithEmailAndPassword(email, password)
+    .then(()=>{
+        showToast('Logged in successfully!!', 'success');
+        loginForm.reset();
+        //redirect to dashboard
+        //window.loaction.href = 'dashboard.html'
+    })
+    .catch((error)=>{
+        showToast(error.message,'error');
+    });
 });
+
+function showToast(message, type){
+   toastMessage.textContent = message;
+   toast.className = 'toast show'
+ 
+   if(type){
+    toast.classList.add(type);
+   }
+   setTimeout(()=>{
+     toast.className = toast.className.replace('show', '');
+     if(type){
+        toast.classList.remove(type);
+     }
+   },3000);
+}

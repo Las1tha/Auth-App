@@ -256,7 +256,11 @@ input:focus {
 }
 
 .modal {
-    /*position: fixed;*/
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
     background-color: rgba(0, 0, 0, 0.5);
     width: 40%;
     height: 100%;

@@ -105,3 +105,14 @@ function showToast(message, type){
      }
    },3000);
 }
+
+//auth state observer
+auth.onAuthStateChanged((user)=>{
+    if(user){
+        //user is sign in
+        window.location.href = 'dashboard.html';
+    }else{
+        //user is sign out
+        window.location.href = 'index.html';
+    }
+})

@@ -321,3 +321,9 @@ input:focus {
     visibility: visible;
     opacity: 1;
  }
+ .toast.success {
+    background-color: var(--success-color);
+ }
+ .toast.error {
+    background-color: var(--error-color);
+ }

@@ -26,6 +26,9 @@ const toast = document.getElementById('toast');
 const resetPasswordForm = document.getElementById('reset-password-form');
 const toastMessage = document.getElementById('toast-message');
 
+
+
+
 //Event Listeners
 signUpButton.addEventListener('click', () => {
     container.classList.add('right-panel-active');
@@ -105,14 +108,30 @@ function showToast(message, type){
      }
    },3000);
 }
+//reset password
+resetPasswordForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = resetPasswordForm['reset-email'].value;
 
+    auth.sendPasswordResetEmail(email)
+    .then(()=>{
+        showToast('Password reset email sent!', 'success');
+        resetPasswordForm.reset();
+        forgotPasswordModal.style.display = 'none';
+    })
+    .catch((error) => {
+        showToast(error.message, 'error');
+      
+    });
+});
 //auth state observer
-auth.onAuthStateChanged((user)=>{
-    if(user){
+//auth.onAuthStateChanged((user)=>{
+  //  if(user){
         //user is sign in
-        window.location.href = 'dashboard.html';
-    }else{
+       // window.location.href = 'dashboard.html';
+   // }else{
         //user is sign out
-        window.location.href = 'index.html';
-    }
-})
+   //     window.location.href = 'index.html';
+   // }
+//})
+
